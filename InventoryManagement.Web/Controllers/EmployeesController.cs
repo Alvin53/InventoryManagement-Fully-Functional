@@ -35,7 +35,7 @@ namespace InventoryManagement.Web.Controllers
         public async Task<ActionResult> ViewAllocations(string id)
         {
             var model = await orderAllocationRepository.GetEmployeeAllocations(id);
-            return View();
+            return View(model);
         }
 
         // GET: EmployeesController/Create
