@@ -44,6 +44,23 @@ namespace InventoryManagement.Web.Repositories
 
                 return employeeAllocationModel;
         }
+
+        public async Task<OrderAllocationEditVM> GetEmployeeAllocation(int id)
+        {
+            var allocation = await context.OrderAllocations
+                .Include(q => q.Product)
+                .FirstOrDefaultAsync(q => q.Id == id);
+            if(allocation == null)
+            {
+                return null;
+            }
+            var employee = await userManager.FindByIdAsync(allocation.EmployeeId);
+
+            var model= mapper.Map<OrderAllocationEditVM>(allocation);
+            model.Employee = mapper.Map<EmployeeListVM>(await userManager.FindByIdAsync (allocation.EmployeeId));
+
+            return model;
+        }
         public async Task OrderAllocation(int productId)
         {
             var employees = await userManager.GetUsersInRoleAsync(Roles.User);

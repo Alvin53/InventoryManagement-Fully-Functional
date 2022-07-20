@@ -14,13 +14,16 @@ namespace InventoryManagement.Web.Controllers
         private readonly UserManager<Employee> userManager;
         private readonly IMapper mapper;
         private readonly IOrderAllocationRepository orderAllocationRepository;
+        private readonly IProductRepository productRepository;
 
         public EmployeesController(UserManager<Employee> userManager,
-            IMapper mapper, IOrderAllocationRepository orderAllocationRepository)
+            IMapper mapper, IOrderAllocationRepository orderAllocationRepository, 
+            IProductRepository productRepository)
         {
             this.userManager = userManager;
             this.mapper = mapper;
             this.orderAllocationRepository = orderAllocationRepository;
+            this.productRepository = productRepository;
         }
         // GET: EmployeesController
         // Display a List of Employees in the Database
@@ -59,25 +62,48 @@ namespace InventoryManagement.Web.Controllers
             }
         }
 
-        // GET: EmployeesController/Edit/5
-        public ActionResult Edit(int id)
+        // GET: EmployeesController/EditAllocation/5
+        public async Task <ActionResult> EditAllocation(int id)
         {
-            return View();
+            var model = await orderAllocationRepository.GetEmployeeAllocation(id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return View(model);
         }
 
-        // POST: EmployeesController/Edit/5
+        // POST: EmployeesController/EditAllocation/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> EditAllocation(int id, OrderAllocationEditVM model)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    var orderAllocation = await orderAllocationRepository.GetAsync(model.Id);
+                    if(orderAllocation == null)
+                    {
+                        return NotFound();
+                    }
+                    //EDIT FIELDS FOR ALLOCATION HERE
+                    orderAllocation.ProductName = model.ProductName;
+                    orderAllocation.ProductQuantity= model.Quantity_Requested;
+
+                    await orderAllocationRepository.UpdateAsync(orderAllocation);
+                    return RedirectToAction(nameof(ViewAllocations), new { id = model.EmployeeId });
+                }
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, " An Error Has Occured. Please Try Again Later.");
             }
+             model.Employee = mapper.Map<EmployeeListVM>(await userManager.FindByIdAsync(model.EmployeeId));
+            model.Product = mapper.Map<ProductVM>(await productRepository.GetAsync(model.ProductId));
+
+            return View(model);
+
         }
 
         // GET: EmployeesController/Delete/5
