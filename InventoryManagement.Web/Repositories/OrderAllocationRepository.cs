@@ -85,5 +85,20 @@ namespace InventoryManagement.Web.Repositories
             }
             await AddRangeAsync(allocations);
         }
+
+        public async Task<bool> UpdateEmployeeAllocation(OrderAllocationEditVM model)
+        {
+            var orderAllocation = await GetAsync(model.Id);
+            if (orderAllocation == null)
+            {
+                return false;
+            }
+            //EDIT FIELDS FOR ALLOCATION HERE
+            orderAllocation.ProductName = model.ProductName;
+            orderAllocation.ProductQuantity = model.Quantity_Requested;
+
+            await UpdateAsync(orderAllocation);
+            return true;
+        }
     }
 }

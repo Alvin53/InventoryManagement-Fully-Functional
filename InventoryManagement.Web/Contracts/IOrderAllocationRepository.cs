@@ -9,5 +9,6 @@ namespace InventoryManagement.Web.Contracts
         Task<bool> AllocationExists(string employeeId, int productId, int period);
         Task<EmployeeAllocationVM> GetEmployeeAllocations(string employeeId);
         Task<OrderAllocationEditVM> GetEmployeeAllocation(int id);
+        Task <bool>UpdateEmployeeAllocation(OrderAllocationEditVM model);
     }
 }
