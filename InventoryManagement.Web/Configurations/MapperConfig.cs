@@ -13,7 +13,9 @@ namespace InventoryManagement.Web.Configurations
             CreateMap<Employee, EmployeeAllocationVM>().ReverseMap();
             CreateMap<OrderAllocation, OrderAllocationVM>().ReverseMap();
             CreateMap<OrderAllocation, OrderAllocationEditVM>().ReverseMap();
- 
+            CreateMap<ItemRequest, ItemRequestCreateVM>().ReverseMap();
+            CreateMap<ItemRequest, ItemRequestVM>().ReverseMap();
+
 
         }
     }

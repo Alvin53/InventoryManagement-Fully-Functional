@@ -21,11 +21,13 @@ builder.Services.AddDefaultIdentity<Employee>(options => options.SignIn.RequireC
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<IEmailSender>(s => new EmailSender("localhost", 25, "no-reply@inventorymanagement.com"));
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IOrderAllocationRepository, OrderAllocationRepository>();
+builder.Services.AddScoped<IItemRequestRepository, ItemRequestRepository>();
 
 
 builder.Services.AddAutoMapper(typeof(MapperConfig)); 

@@ -17,7 +17,7 @@ namespace InventoryManagement.Web.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.6")
+                .HasAnnotation("ProductVersion", "6.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -106,7 +106,7 @@ namespace InventoryManagement.Web.Migrations
                         {
                             Id = "641441d9-073b-45d3-81d5-7edbcb0faff7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f395e68f-0d41-485c-9654-fdda7d0ae211",
+                            ConcurrencyStamp = "16def305-a03a-4ddb-aec5-b29786a5b13b",
                             DateJoined = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@localhost.com",
@@ -116,9 +116,9 @@ namespace InventoryManagement.Web.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAELKLZUj+HfPkCZdOOlO4jwq968wzV8dtMsPZ0km41kRlI54xRq74ZkFfqltTU08Skw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELnEXJ21Z67ZdPInkIdgZE/tCgPP2RkzrY9NbdhkaThOfzNT8f64qmKC7VTGQRkmUA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7a7f8866-efba-4b21-b69a-f1d97bebe82c",
+                            SecurityStamp = "e1bd4103-7d75-404f-8512-a7bf7099ce12",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         },
@@ -126,7 +126,7 @@ namespace InventoryManagement.Web.Migrations
                         {
                             Id = "2b06a079-d2c3-4b00-bb14-148b795cc2f9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3d53dbef-f5c6-4235-9d70-35ff80cd79c3",
+                            ConcurrencyStamp = "30edefb7-b9dc-4ca3-b85a-e09e4ce65aec",
                             DateJoined = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user@localhost.com",
@@ -136,9 +136,9 @@ namespace InventoryManagement.Web.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@LOCALHOST.COM",
                             NormalizedUserName = "USER@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEA1/9uqrTl6H8C9cLj0Efr9Ndqifln+LKeiQ2lxEFedOgo8by7vTbFIrBizRDWnYFQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFrIWI50yDkk+N6DJQbD2FwIyr9e+aHHikmzGM0CVSk01bLP3VQv3ZEkgJcYSA5ioA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "16382435-7bf4-4319-b019-3a2361cfadc3",
+                            SecurityStamp = "bbb39aa5-7abb-4d66-9453-0dfe8ce15910",
                             TwoFactorEnabled = false,
                             UserName = "user@localhost.com"
                         });
@@ -152,6 +152,12 @@ namespace InventoryManagement.Web.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<bool?>("Approved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Cancelled")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
@@ -161,22 +167,23 @@ namespace InventoryManagement.Web.Migrations
                     b.Property<DateTime>("DateRequested")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("EmployeeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("OrderStatus")
-                        .HasColumnType("bit");
-
                     b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductQuantity")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity_Requested")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<string>("RequestingEmployeeId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("EmployeeId");
+                    b.Property<string>("RequstComments")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
@@ -298,14 +305,14 @@ namespace InventoryManagement.Web.Migrations
                         new
                         {
                             Id = "605ae320-30b8-4996-8c99-bf4d3274cf32",
-                            ConcurrencyStamp = "9eafca81-7cf6-44b5-bf70-a94838c41954",
+                            ConcurrencyStamp = "6e4b9a41-9d03-4b98-9932-04a9dfa72347",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "502aA320-30b8-4996-8A99-bf4d3274af34",
-                            ConcurrencyStamp = "6c407b53-3e2d-4420-bf55-f6695795579f",
+                            ConcurrencyStamp = "84354d42-63ed-4cc5-a8db-520e4695fca1",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -435,19 +442,11 @@ namespace InventoryManagement.Web.Migrations
 
             modelBuilder.Entity("InventoryManagement.Web.Data.ItemRequest", b =>
                 {
-                    b.HasOne("InventoryManagement.Web.Data.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("InventoryManagement.Web.Data.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Employee");
 
                     b.Navigation("Product");
                 });
