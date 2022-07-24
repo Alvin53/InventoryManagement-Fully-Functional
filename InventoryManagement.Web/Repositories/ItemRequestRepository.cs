@@ -39,6 +39,25 @@ namespace InventoryManagement.Web.Repositories
 
         }
 
+        public async Task<AdminItemRequestViewVM> GetAdminItemRequestList()
+        {
+            var itemRequests = await context.ItemRequests.Include(q=> q.Product).ToListAsync();
+            var model = new AdminItemRequestViewVM
+            {
+                TotalRequests = itemRequests.Count,
+                ApprovedRequests = itemRequests.Count(q => q.Approved == true),
+                PendingRequests = itemRequests.Count(q => q.Approved == null),
+                DeniedRequests = itemRequests.Count(q => q.Approved == false),
+                ItemRequests = mapper.Map<List<ItemRequestVM>>(itemRequests),
+
+            };
+            foreach (var itemRequest in model.ItemRequests)
+            {
+                itemRequest.Employee  = mapper.Map<EmployeeListVM> (await userManager.FindByIdAsync(itemRequest.RequestingEmployeeId));
+            }
+            return model;
+        }
+
         public async Task<List<ItemRequest>> GetAllAsync(string employeeId)
         {
             return await context.ItemRequests.Where(q => q.RequestingEmployeeId == employeeId).ToListAsync();

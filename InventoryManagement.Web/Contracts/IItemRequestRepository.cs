@@ -8,5 +8,6 @@ namespace InventoryManagement.Web.Contracts
         Task CreateItemRequest(ItemRequestCreateVM model);
         Task <EmployeeItemRequestViewVM>GetMyItemRequestDetails();
         Task <List<ItemRequest>>GetAllAsync(string employeeId);
+        Task<AdminItemRequestViewVM> GetAdminItemRequestList();
     }
 }

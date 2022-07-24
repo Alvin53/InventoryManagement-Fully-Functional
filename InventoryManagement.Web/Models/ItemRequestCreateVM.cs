@@ -7,7 +7,7 @@ namespace InventoryManagement.Web.Models
 {
     public class ItemRequestCreateVM : IValidatableObject
     {
-        public Product? Product { get; set; }
+        public ProductVM? Product { get; set; }
 
         [Required]
         [Display(Name ="Item Name")]

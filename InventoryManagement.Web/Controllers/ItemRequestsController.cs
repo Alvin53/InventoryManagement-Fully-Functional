@@ -10,6 +10,7 @@ using InventoryManagement.Web.Models;
 using AutoMapper;
 using InventoryManagement.Web.Contracts;
 using Microsoft.AspNetCore.Authorization;
+using InventoryManagement.Web.Constants;
 
 namespace InventoryManagement.Web.Controllers
 {
@@ -25,11 +26,12 @@ namespace InventoryManagement.Web.Controllers
             this.itemRequestRepository = itemRequestRepository;
         }
 
+        [Authorize(Roles = Roles.Administrator)]
         // GET: ItemRequests
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.ItemRequests.Include(i => i.Product);
-            return View(await applicationDbContext.ToListAsync());
+            var model = await itemRequestRepository.GetAdminItemRequestList();
+            return View(model);
         }
         public async Task<ActionResult> MyRequest()
         {

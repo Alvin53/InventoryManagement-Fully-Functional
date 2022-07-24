@@ -9,12 +9,11 @@ namespace InventoryManagement.Web.Models
         public int Id { get; set; }
 
         [Display(Name = "Item Name")]
-        public Product Product { get; set; }
-
-
         public int ProductQuantity { get; set; }
 
         public bool? Approved { get; set; }
         public bool Cancelled { get; set; }
+        public string? RequestingEmployeeId { get; set; }
+       public  EmployeeListVM Employee { get; set; }
     }
 }
