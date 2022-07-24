@@ -61,6 +61,7 @@ namespace InventoryManagement.Web.Controllers
         {
             var model = new ItemRequestCreateVM
             {
+               // DateRequested = DateTime.Now,
                 Products = new SelectList(_context.Products, "Id", "ProductName")            
             };
             return View(model);
