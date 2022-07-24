@@ -8,6 +8,9 @@ namespace InventoryManagement.Web.Contracts
         Task CreateItemRequest(ItemRequestCreateVM model);
         Task <EmployeeItemRequestViewVM>GetMyItemRequestDetails();
         Task <List<ItemRequest>>GetAllAsync(string employeeId);
+        Task<ItemRequestVM?> GetItemRequestAsync(int? id);
+
         Task<AdminItemRequestViewVM> GetAdminItemRequestList();
+        Task ChangeApprovalStatus(int itemRequest, bool approved);
     }
 }

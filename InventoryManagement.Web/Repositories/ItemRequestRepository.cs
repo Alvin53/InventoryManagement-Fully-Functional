@@ -28,6 +28,21 @@ namespace InventoryManagement.Web.Repositories
             this.userManager = userManager;
         }
 
+        public async Task ChangeApprovalStatus(int itemRequestId, bool approved)
+        {
+            var itemRequest = await GetAsync(itemRequestId);
+            itemRequest.Approved = approved;
+            if (approved)
+            {
+                //Changes Need to Be made here to edit allocaiton
+                var allocation = await orderAllocationRepository.GetEmployeeAllocation(itemRequest.RequestingEmployeeId, itemRequest.ProductId);
+                int quantityRequested = (int)(itemRequest.Quantity_Requested - itemRequest.ProductQuantity);
+                allocation.Quantity_Requested -= quantityRequested;
+                await orderAllocationRepository.UpdateAsync(allocation);
+            }
+            await UpdateAsync(itemRequest);
+        }   
+
         public async Task CreateItemRequest(ItemRequestCreateVM model)
         {
             var user = await userManager.GetUserAsync(httpContextAccessor?.HttpContext?.User);
@@ -63,6 +78,7 @@ namespace InventoryManagement.Web.Repositories
             return await context.ItemRequests.Where(q => q.RequestingEmployeeId == employeeId).ToListAsync();
         }
 
+       
         public async Task<EmployeeItemRequestViewVM> GetMyItemRequestDetails()
         {
             var user = await userManager.GetUserAsync(httpContextAccessor?.HttpContext?.User);
@@ -71,6 +87,24 @@ namespace InventoryManagement.Web.Repositories
 
             var model = new EmployeeItemRequestViewVM(allocations, requests);
 
+            return model;
+        }
+
+     
+
+        public async Task<ItemRequestVM?>GetItemRequestAsync(int? id)
+        {
+            var itemRequest = await context.ItemRequests
+               .Include(q => q.Product)
+               .FirstOrDefaultAsync(q => q.Id == id);
+
+            if (itemRequest == null)
+            {
+                return null;
+            }
+
+            var model = mapper.Map<ItemRequestVM>(itemRequest);
+            model.Employee = mapper.Map<EmployeeListVM>(await userManager.FindByIdAsync(itemRequest?.RequestingEmployeeId));
             return model;
         }
     }

@@ -25,7 +25,7 @@ namespace InventoryManagement.Web.Controllers
             _context = context;
             this.itemRequestRepository = itemRequestRepository;
         }
-
+       
         [Authorize(Roles = Roles.Administrator)]
         // GET: ItemRequests
         public async Task<IActionResult> Index()
@@ -38,26 +38,35 @@ namespace InventoryManagement.Web.Controllers
             var model = await itemRequestRepository.GetMyItemRequestDetails();
             return View(model);
         }
- 
+
         // GET: ItemRequests/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.ItemRequests == null)
+            var model = await itemRequestRepository.GetItemRequestAsync(id);
+            if(model == null)
             {
                 return NotFound();
             }
 
-            var itemRequest = await _context.ItemRequests
-                .Include(i => i.Product)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (itemRequest == null)
-            {
-                return NotFound();
-            }
-
-            return View(itemRequest);
+            return View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ApproveRequest(int id, bool approved)
+        {
+            try
+            {
+                await itemRequestRepository.ChangeApprovalStatus(id, approved);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            return RedirectToAction("Index");
+        }
         // GET: ItemRequests/Create
         public IActionResult Create()
         {
@@ -81,7 +90,7 @@ namespace InventoryManagement.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     await itemRequestRepository.CreateItemRequest(model);
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(MyRequest));
                 }
             }
             catch (Exception ex)

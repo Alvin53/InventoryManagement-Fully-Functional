@@ -100,5 +100,10 @@ namespace InventoryManagement.Web.Repositories
             await UpdateAsync(orderAllocation);
             return true;
         }
+
+        public async Task<OrderAllocation?> GetEmployeeAllocation(string employeeId, int productId)
+        {
+           return await context.OrderAllocations.FirstOrDefaultAsync(q => q.EmployeeId == employeeId && q.ProductId == productId);
+        }
     }
 }
