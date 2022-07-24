@@ -2,6 +2,7 @@
   "version": "1.0",
   "defaultProvider": "cdnjs",
   "libraries": [
+  
     {
       "provider": "cdnjs",
       "library": "sweetalert@2.1.2",

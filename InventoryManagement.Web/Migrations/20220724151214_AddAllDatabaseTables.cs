@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InventoryManagement.Web.Migrations
 {
-    public partial class AddTablesMigrations : Migration
+    public partial class AddAllDatabaseTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -184,9 +184,10 @@ namespace InventoryManagement.Web.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<int>(type: "int", nullable: false),
+                    ProductQuantity = table.Column<int>(type: "int", nullable: false),
                     Quantity_Requested = table.Column<int>(type: "int", nullable: false),
                     DateRequested = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    RequstComments = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RequstComments = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Approved = table.Column<bool>(type: "bit", nullable: true),
                     Cancelled = table.Column<bool>(type: "bit", nullable: false),
                     RequestingEmployeeId = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -244,8 +245,8 @@ namespace InventoryManagement.Web.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "502aA320-30b8-4996-8A99-bf4d3274af34", "2231fe61-aedf-4edc-afb8-372778635cf3", "User", "USER" },
-                    { "605ae320-30b8-4996-8c99-bf4d3274cf32", "6bf3e7ed-6c0f-4ee6-b7a2-dbf07fdcc611", "Administrator", "ADMINISTRATOR" }
+                    { "502aA320-30b8-4996-8A99-bf4d3274af34", "50672ccb-91af-48e9-b8d6-7f86ff47e45e", "User", "USER" },
+                    { "605ae320-30b8-4996-8c99-bf4d3274cf32", "b30f1593-0992-4bb3-846c-e8a54304c7c0", "Administrator", "ADMINISTRATOR" }
                 });
 
             migrationBuilder.InsertData(
@@ -253,8 +254,8 @@ namespace InventoryManagement.Web.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "DateJoined", "DateOfBirth", "Email", "EmailConfirmed", "EmployeeDepartment", "Firstname", "Lastname", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "2b06a079-d2c3-4b00-bb14-148b795cc2f9", 0, "902be40b-218c-4a73-b79b-f58bdc762a7f", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", true, null, "System", "User", false, null, "USER@LOCALHOST.COM", "USER@LOCALHOST.COM", "AQAAAAEAACcQAAAAENtaqHSuCia+lq5Mn+OEx9Em6EmnZD+GIjIk59qwdyQH5YKf9KoNolzk/bucTbVpIQ==", null, false, "55eec577-4a5e-4be2-88db-9a792e5d1a01", false, "user@localhost.com" },
-                    { "641441d9-073b-45d3-81d5-7edbcb0faff7", 0, "2fc1abd2-5557-4bb6-afd9-c4fa24c61314", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", true, null, "System", "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAEAACcQAAAAEFSd6CH6MAPNOsnXzTjKoFlE+jifdTV0S5t4g66cqLdMmKQdwClt4G1ZPjf4AptFmQ==", null, false, "ee9b45de-4213-4cf0-82d9-3d5a87ba34ee", false, "admin@localhost.com" }
+                    { "2b06a079-d2c3-4b00-bb14-148b795cc2f9", 0, "c2f519ec-a39e-4e2a-aedd-5bf642b20553", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user@localhost.com", true, null, "System", "User", false, null, "USER@LOCALHOST.COM", "USER@LOCALHOST.COM", "AQAAAAEAACcQAAAAEC1X55WVndkzYlXu3mptj4oNhjb35llKHM7YszFOeHOMnL0aTjnyGlXt3gvmY3ECvw==", null, false, "b7fa1a47-48d4-43f9-8b0d-e33b1fc84c65", false, "user@localhost.com" },
+                    { "641441d9-073b-45d3-81d5-7edbcb0faff7", 0, "e484ea83-5374-4e58-98bf-956220d81d2b", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@localhost.com", true, null, "System", "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAEAACcQAAAAEEhM78dMQlBBuC6PougpBe8BeNSumXIjEoHWvZpDnDVU+3ZWZ0ponsHdo34hFca1uw==", null, false, "088daae1-65f0-4f64-9b55-36a1f054c70e", false, "admin@localhost.com" }
                 });
 
             migrationBuilder.InsertData(

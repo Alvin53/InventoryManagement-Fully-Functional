@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventoryManagement.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220724145656_ResetMigrations")]
-    partial class ResetMigrations
+    [Migration("20220724151214_AddAllDatabaseTables")]
+    partial class AddAllDatabaseTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -108,7 +108,7 @@ namespace InventoryManagement.Web.Migrations
                         {
                             Id = "641441d9-073b-45d3-81d5-7edbcb0faff7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8352e5f6-4c40-4283-9d32-9930de26b79c",
+                            ConcurrencyStamp = "e484ea83-5374-4e58-98bf-956220d81d2b",
                             DateJoined = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@localhost.com",
@@ -118,9 +118,9 @@ namespace InventoryManagement.Web.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFTF/lbUN/dzG4gSA9H3qnQ9Ltr4g5itjjNbVGwUZ8p4hBFYQjlGJIKk76WPNU97zA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEhM78dMQlBBuC6PougpBe8BeNSumXIjEoHWvZpDnDVU+3ZWZ0ponsHdo34hFca1uw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6539d9fc-a5f0-4f0f-b214-fb9036ed9a53",
+                            SecurityStamp = "088daae1-65f0-4f64-9b55-36a1f054c70e",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         },
@@ -128,7 +128,7 @@ namespace InventoryManagement.Web.Migrations
                         {
                             Id = "2b06a079-d2c3-4b00-bb14-148b795cc2f9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8b2e4930-b112-4845-be72-a3ba501e4bfa",
+                            ConcurrencyStamp = "c2f519ec-a39e-4e2a-aedd-5bf642b20553",
                             DateJoined = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user@localhost.com",
@@ -138,9 +138,9 @@ namespace InventoryManagement.Web.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@LOCALHOST.COM",
                             NormalizedUserName = "USER@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEC2NujpX0Vjpikv7Bknz+yF7FuITppIB5QNxQRU/+3Yd31dstH/7UTKOJ95MpPidPg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEC1X55WVndkzYlXu3mptj4oNhjb35llKHM7YszFOeHOMnL0aTjnyGlXt3gvmY3ECvw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b2d59579-5bf7-4448-b034-7111a30f1dfa",
+                            SecurityStamp = "b7fa1a47-48d4-43f9-8b0d-e33b1fc84c65",
                             TwoFactorEnabled = false,
                             UserName = "user@localhost.com"
                         });
@@ -307,14 +307,14 @@ namespace InventoryManagement.Web.Migrations
                         new
                         {
                             Id = "605ae320-30b8-4996-8c99-bf4d3274cf32",
-                            ConcurrencyStamp = "3b8d239e-01d1-4c6d-866c-a8bb56d54299",
+                            ConcurrencyStamp = "b30f1593-0992-4bb3-846c-e8a54304c7c0",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "502aA320-30b8-4996-8A99-bf4d3274af34",
-                            ConcurrencyStamp = "4a98e1bd-a537-40ef-8be1-522aa8e73007",
+                            ConcurrencyStamp = "50672ccb-91af-48e9-b8d6-7f86ff47e45e",
                             Name = "User",
                             NormalizedName = "USER"
                         });

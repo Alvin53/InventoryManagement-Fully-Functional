@@ -60,8 +60,7 @@
 }
     </tbody>
 </table>
-
-<form id="deleteFrom" asp-action="Delete">
+<form id="deleteForm" asp-action="Delete">
         <input type="hidden" id="productId" name="Id" />
 </form>
 <form id="allocationForm" asp-action="AllocateOrder">
@@ -70,7 +69,6 @@
 @section Scripts{
     <script>
         $(function(){
-            $('.table').DataTable();
 
             $('.deleteBtn').click(function(e) {
                 swal({
@@ -84,7 +82,7 @@
                         var btn = $(this);
                         var id = btn.data("id");
                         $('#productId').val(id);
-                        $('#deleteFrom').submit();
+                        $('#deleteForm').submit();
                     }
                      });
             });
