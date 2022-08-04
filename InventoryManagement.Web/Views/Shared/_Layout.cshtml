@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using InventoryManagement.Web.Constants
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -8,7 +9,10 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/InventoryManagement.Web.styles.css" asp-append-version="true" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -24,30 +28,25 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="ItemRequests" asp-action="Create">Request Item(s)</a>
+                        @if (User.IsInRole(Roles.User))
+                        {
+                            <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="ItemRequests" asp-action="Create">Apply For Item(s)</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="ItemRequests" asp-action="MyRequest">My Item Requests</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="" asp-action=""></a>
-                        </li>
-                        
+                        }
                         
                         @if (User.IsInRole("Administrator"))
                         {
-                            <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="" asp-action="">Reports</a>
-                            </li>
-                       
+       
                           <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
                             Inventory
                           </a>
                           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li><a class="dropdown-item" asp-controller="Products" asp-action="Index" >Products</a></li>
-                            <li><a class="dropdown-item" href="#">Categories</a></li>
+                            <li><a class="dropdown-item" asp-controller="Products" asp-action="Index" >Manage Stocks</a></li>
                           </ul>
                         </li>   
                           <li class="nav-item dropdown">
@@ -62,6 +61,7 @@
                           <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Order Management
                           </a>
+                         
                           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                             <li><a class="dropdown-item" asp-controller="ItemRequests" asp-action="Index">Item Requests View</a></li>
                           </ul>
@@ -79,7 +79,7 @@
             @RenderBody()
         </main>
     </div>
-
+    
     <footer class="border-top footer text-muted " style = "text-align:center " >
         <div class="container">
              Inventory Management - &copy; @DateTime.Now.Year <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>

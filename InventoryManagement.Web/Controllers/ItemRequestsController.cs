@@ -67,6 +67,21 @@ namespace InventoryManagement.Web.Controllers
             }
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Cancel(int id)
+        {
+            try
+            {
+                await itemRequestRepository.CancelItemRequest(id);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            return RedirectToAction(nameof(MyRequest));
+        }
         // GET: ItemRequests/Create
         public IActionResult Create()
         {

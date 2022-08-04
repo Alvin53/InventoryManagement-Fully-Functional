@@ -15,6 +15,7 @@ namespace InventoryManagement.Web.Models
 
         [Required]
         [Display(Name = "Quantity Requested")]
+        [Range(1, 30, ErrorMessage = "Please enter a valid number, greater than 0.")]
         public int Quantity_Requested { get; set; }
 
         public SelectList? Products { get; set; }
@@ -31,7 +32,7 @@ namespace InventoryManagement.Web.Models
             {
                 yield return new ValidationResult("Please Input a value greater than 0 .", new[] { nameof(Quantity_Requested) });
             }
-            if(RequstComments?.Length > 250)
+            if(RequstComments?.Length > 50)
             {
                 yield return new ValidationResult("Comments are Too Long. Please input less characters.", new[] { nameof(RequstComments) });
 

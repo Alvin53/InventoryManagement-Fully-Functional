@@ -55,12 +55,12 @@
         {
             <li class="list-group-item"><h6>@allocation.Product.ProductName</h6>
             <button type="button" class="btn btn-primary">
-              Items Requested<span class="badge text-bg-secondary">@allocation.Product.ProductQuantity</span>
+              Items Allocated<span class="badge text-bg-secondary">@allocation.Product.ProductQuantity</span>
             </button>   
              <a class="btn btn-warning" asp-action="EditAllocation" asp-route-id="@allocation.Id">Edit Allocation</a> |
             </li>
         }
-       
+       <br />
             <a class="btn btn-dark" asp-action="Index">Back to List</a>
     </ul>
 

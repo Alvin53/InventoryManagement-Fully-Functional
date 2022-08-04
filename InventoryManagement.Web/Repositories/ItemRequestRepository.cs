@@ -107,5 +107,12 @@ namespace InventoryManagement.Web.Repositories
             model.Employee = mapper.Map<EmployeeListVM>(await userManager.FindByIdAsync(itemRequest?.RequestingEmployeeId));
             return model;
         }
+
+        public async Task CancelItemRequest(int itemRequestId)
+        {
+            var itemRequest = await GetAsync(itemRequestId);
+            itemRequest.Cancelled = true;
+            await UpdateAsync(itemRequest);
+        }
     }
 }
